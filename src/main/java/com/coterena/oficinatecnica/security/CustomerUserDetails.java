@@ -30,6 +30,7 @@ public class CustomerUserDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.customerRepository.findByEmail(username)
                 .map(customer -> {
+                    //Esto hay que cambiarlo
                     var authorities = List.of(new SimpleGrantedAuthority(customer.getRole()));
                     return new User(customer.getEmail(), customer.getPassword(), authorities);
                 }).orElseThrow(() -> new UsernameNotFoundException("User noooolll found"));
